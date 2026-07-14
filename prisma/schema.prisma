@@ -25,6 +25,7 @@ model User {
 	// Relations
 	sessions Session[]
 	accounts Account[]
+	feedback Feedback[]
 	@@map("user")
 }
 model Session {
@@ -73,6 +74,8 @@ model Menu{
 	menuName String @unique
 	slung String
 	createAt DateTime @default(now())
+
+	menuItem MenuItem[]
 }
 
 model ActivityLog{
@@ -81,5 +84,41 @@ model ActivityLog{
 	details String
 	actions String
 	createAt DateTime @default(now())
+
+}
+
+
+model MenuItem{
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	name String
+	discount Float? @default(0)
+	price Float 
+	description Json
+	image String
+	isAvailable Boolean @default(true)
+	menuId String  @db.ObjectId
+	aiSuggestion String?
+
+	//relation 
+	feedback Feedback[]
+	menu Menu @relation(fields: [menuId], references: [id], onDelete: Cascade)
+	createAt DateTime @default(now())
+
+
+	
+}
+
+model Feedback{
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	userName String
+	userId String @db.ObjectId
+	commitment Json
+	createAt DateTime @default(now())
+	menuItemId String @db.ObjectId
+
+
+	//relation 
+	menu MenuItem @relation(fields: [menuItemId], references: [id])
+	user User @relation(fields: [userId], references: [id])
 
 }
