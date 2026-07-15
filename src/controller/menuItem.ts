@@ -127,9 +127,8 @@ export const deleteMenuItem = async(req:Request, res:Response) =>{
 }
 
 
-//How to handler pagination, when querying a large data out of the database
 
-export const getAllItem = async( req:Request, res:Response)=>{
+export const getMenuItem = async( req:Request, res:Response)=>{
     try {
         const page = Math.max(1, parseInt(req.query.page as any) || 1);
         const limit = Math.max(1, parseInt(req.query.limit as any)|| 10);

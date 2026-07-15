@@ -1,7 +1,7 @@
 import { logger } from "better-auth";
 import type { NextFunction, Request, Response } from "express"
 
-type Role= "ADMIN" |"MANAGER"|"CUSTOMER"|"STAFF"|"KITCHEN"
+export type Role= "ADMIN" |"MANAGER"|"CUSTOMER"|"STAFF"|"KITCHEN"
 
 export const roleCheck = (role:Role[])=>{
     return (req:Request, res:Response, next:NextFunction)=>{
