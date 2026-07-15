@@ -26,6 +26,7 @@ model User {
 	sessions Session[]
 	accounts Account[]
 	feedback Feedback[]
+	order Order[]
 	@@map("user")
 }
 model Session {
@@ -102,15 +103,14 @@ model MenuItem{
 	//relation 
 	feedback Feedback[]
 	menu Menu @relation(fields: [menuId], references: [id], onDelete: Cascade)
+	order Order[]
 	createAt DateTime @default(now())
-
-
-	
 }
 
 model Feedback{
 	id String @id @default(auto()) @map("_id") @db.ObjectId
 	userName String
+	rating Int
 	userId String @db.ObjectId
 	commitment Json
 	createAt DateTime @default(now())
@@ -120,5 +120,47 @@ model Feedback{
 	//relation 
 	menu MenuItem @relation(fields: [menuItemId], references: [id])
 	user User @relation(fields: [userId], references: [id])
+
+}
+
+enum OrderStatus{
+	PREPARING
+	CANCELLED
+	DELIVERED
+}
+
+model Order{
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	userName String
+	status OrderStatus @default(PREPARING)
+	menuItemId String @db.ObjectId
+	tableId String @db.ObjectId
+	userId String @db.ObjectId
+	paymentID String?
+	createAt DateTime @default(now())
+
+	//relation 
+	user User @relation(fields: [userId], references: [id])
+	menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+	table Table @relation(fields: [tableId], references: [id])
+
+
+
+}
+
+enum TableStatus{
+	OCCUPIED
+	AVAILABLE
+	RESERVED
+}
+model Table{
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	tableName String
+	seats Int
+	tableStatus TableStatus @default(AVAILABLE)
+	createAt DateTime @default(now())
+	
+
+	order Order[]
 
 }
