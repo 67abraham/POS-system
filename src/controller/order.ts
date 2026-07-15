@@ -35,7 +35,7 @@ export const createOrder = async(req:Request, res:Response)=>{
                         });
                 
                 logger.info(`MenItem Deleted: Order is Created: User: ${creOrder.userName}- Status:${creOrder.status}`)
-                res.status(200).json(createOrder)
+                res.status(201).json(createOrder)
                 
     } catch (error) {
         logger.info("Internal Server Error")

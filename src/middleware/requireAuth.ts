@@ -1,8 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import type { IncomingHttpHeaders } from "http";
-import { auth } from "./auth";
+import { auth } from "../lib/auth";
 import { fromNodeHeaders } from "better-auth/node";
-import { logger } from "./logger";
+import { logger } from "../lib/logger";
 
 export const requireAuth = async(req:Request, res:Response, next:NextFunction)=>{
 
@@ -18,6 +18,8 @@ export const requireAuth = async(req:Request, res:Response, next:NextFunction)=>
 
         (req as any).user = session.user;
         (req as any).session = session.session
+
+        logger.info(session.user.role)
 
         next();
     } catch (error) {

@@ -14,12 +14,24 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
+enum Role{
+	ADMIN
+	MANAGER
+	CUSTOMER
+	STAFF
+	KITCHEN
+}
+
 model User {
 	id            String    @id @default(auto()) @map("_id") @db.ObjectId
 	name          String?
 	email         String    @unique
 	emailVerified Boolean
 	image         String?
+	role Role @default(CUSTOMER)
+	phone		String?
+	dateOfBirth	DateTime?
+	biography Json?
 	createdAt     DateTime  @default(now())
 	updatedAt     DateTime  @updatedAt
 	// Relations
@@ -155,9 +167,10 @@ enum TableStatus{
 }
 model Table{
 	id String @id @default(auto()) @map("_id") @db.ObjectId
-	tableName String
+	tableName String @unique
 	seats Int
 	tableStatus TableStatus @default(AVAILABLE)
+	image String
 	createAt DateTime @default(now())
 	
 
