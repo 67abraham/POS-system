@@ -177,3 +177,19 @@ model Table{
 	order Order[]
 
 }
+
+enum ResStatus{
+	PENDING
+	CONFIRM
+}
+
+model Reservation{
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	date DateTime
+	userName String
+	status ResStatus @default(PENDING)
+	userId String @db.ObjectId
+	tableId String @db.ObjectId
+
+
+}
