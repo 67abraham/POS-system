@@ -4,11 +4,13 @@ import { createMenu, deleteMenu, getMenu, updateMenu } from "../controller/menu"
 import { roleCheck } from "../middleware/roleCheck";
 import { createMenuItem, deleteMenuItem, getMenuItem, getMenuItemById, updateMenuItem } from "../controller/menuItem";
 import { createOrder, deleteOrder, getOrder, Order_Status, updateOder } from "../controller/order";
+import { createTable, deleteTable, getTable, updateTable } from "../controller/tables";
 
 
 export const menu = express.Router();
 export const menuItem = express.Router()
 export const order = express.Router();
+export const table = express.Router()
 
 //menu
 menu.post("/create",requireAuth, roleCheck(["ADMIN", "MANAGER"]), createMenu)
@@ -31,3 +33,10 @@ order.put("/update/:id", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER"]),
 order.put("/status/:id", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER", "STAFF"]),Order_Status)
 order.delete("/del/:id", requireAuth, roleCheck(["ADMIN","MANAGER"]), deleteOrder)
 order.get("/get", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER", "STAFF", "KITCHEN"]),getOrder)
+
+//table
+
+table.post("/create", requireAuth, roleCheck(["ADMIN", "MANAGER"]), createTable)
+table.put("/update/:id", requireAuth, roleCheck(["ADMIN", "MANAGER"]), updateTable)
+table.delete("/delete/:id", requireAuth, roleCheck(["ADMIN", "MANAGER"]), deleteTable)
+table.get("/delete/:id", requireAuth, roleCheck(["ADMIN", "MANAGER", "STAFF", "CUSTOMER"]), getTable)

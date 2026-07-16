@@ -7,7 +7,7 @@ import morgan from "morgan";
 import dotenv from "dotenv"
 import { auth } from "./lib/auth";
 import { toNodeHandler } from "better-auth/node";
-import { menu } from "./routes/apiRoute";
+import { menu, menuItem, order, table } from "./routes/apiRoute";
 
 dotenv.config();
 const app:Application = express();
@@ -43,6 +43,9 @@ app.get("/", (req:Request, res:Response)=>{
 
 //resources route
 app.use("/api/menu", menu)
+app.use("/api/menu_item", menuItem)
+app.use("/api/order", order)
+app.use("/api/table", table)
 
 //globalError
 app.use((error:Error, req:Request, res:Response)=>{
