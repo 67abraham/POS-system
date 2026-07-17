@@ -105,7 +105,7 @@ model MenuItem{
 	id String @id @default(auto()) @map("_id") @db.ObjectId
 	name String
 	discount Float? @default(0)
-	price Float 
+	price Float @default(0)
 	description Json
 	image String
 	isAvailable Boolean @default(true)
@@ -122,7 +122,8 @@ model MenuItem{
 model Feedback{
 	id String @id @default(auto()) @map("_id") @db.ObjectId
 	userName String
-	rating Int
+	userImage String
+	rating Int @default(0)
 	userId String @db.ObjectId
 	commitment Json
 	createAt DateTime @default(now())

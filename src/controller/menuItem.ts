@@ -147,6 +147,9 @@ export const getMenuItem = async( req:Request, res:Response)=>{
                 },
                 where:{
                     isAvailable
+                },
+                include:{
+                    feedback: true
                 }
             }),
             

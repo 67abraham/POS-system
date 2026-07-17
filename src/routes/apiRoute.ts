@@ -5,6 +5,7 @@ import { roleCheck } from "../middleware/roleCheck";
 import { createMenuItem, deleteMenuItem, getMenuItem, getMenuItemById, updateMenuItem } from "../controller/menuItem";
 import { createOrder, deleteOrder, getOrder, Order_Status, updateOder } from "../controller/order";
 import { createTable, deleteTable, getTable, updateTable } from "../controller/tables";
+import { createFeedback } from "../controller/feedback";
 
 
 export const menu = express.Router();
@@ -25,6 +26,9 @@ menuItem.put("/update/:id", requireAuth, roleCheck(["ADMIN","MANAGER"]), updateM
 menuItem.delete("/delete", requireAuth, roleCheck(["ADMIN","MANAGER"]), deleteMenuItem);
 menuItem.get("/menu/:id", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER","STAFF","KITCHEN"]), getMenuItemById);
 menuItem.get("/get", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER","STAFF","KITCHEN"]), getMenuItem);
+menuItem.post("/feedback/create", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER"]), createFeedback);
+menuItem.put("/feedback/update/:id", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER"]), createFeedback);
+menuItem.delete("/feedback/delete/:id", requireAuth, roleCheck(["ADMIN","MANAGER","CUSTOMER"]), createFeedback);
 
 //order
 
